@@ -6,7 +6,7 @@ import Notification from "../model/notification.model.js";
 // CREATE POST
 export const createPost = async (req, res) => {
     try {
-        console.log("req.user:", req.user); // Debugging
+        console.log("req.user:", req.user); 
 
         if (!req.user) {
             return res.status(401).json({ error: "User not authenticated" });
@@ -110,7 +110,7 @@ export const likeunlikePost = async (req, res) => {
 			return res.status(404).json({ error: "Post not found" });
 		}
 
-		const userLikedPost = post.likes.includes(userId); // ✅ Fix here
+		const userLikedPost = post.likes.includes(userId); 
 
 		if (userLikedPost) {
 			await Post.updateOne({ _id: postId }, { $pull: { likes: userId } });
@@ -120,7 +120,7 @@ export const likeunlikePost = async (req, res) => {
 				(id) => id.toString() !== userId.toString()
 			);
 
-			return res.status(200).json(updatedLikes); // ✅ send array directly
+			return res.status(200).json(updatedLikes); 
 		} else {
 			post.likes.push(userId);
 			await User.updateOne({ _id: userId }, { $push: { likedPosts: postId } });
@@ -133,7 +133,7 @@ export const likeunlikePost = async (req, res) => {
 			});
 			await notification.save();
 
-			return res.status(200).json(post.likes); // ✅ send updated likes
+			return res.status(200).json(post.likes); 
 		}
 	} catch (error) {
 		console.log(`Error in like/unlike controller: ${error}`);

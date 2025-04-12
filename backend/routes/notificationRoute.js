@@ -4,10 +4,9 @@ import { getNotifications, deleteNotifications } from "../controllers/notificati
 
 const router = express.Router();
 
-// Get all notifications (requires authentication)
+
 router.get("/", protectRoute, getNotifications);
 
-// Delete all notifications for the authenticated user
 router.delete("/", protectRoute, deleteNotifications);
 
 export default router;

@@ -17,7 +17,7 @@ const EditProfileModal = () => {
 
 	const { updateProfile, isUpdatingProfile } = useUpdateUserProfile();
 
-	// 👇 Define queryFn directly here
+	
 	const fetchAuthUser = async () => {
 		const res = await fetch(`${baseUrl}/api/auth/me`, {
 			credentials: "include",

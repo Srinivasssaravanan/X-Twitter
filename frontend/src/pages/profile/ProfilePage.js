@@ -29,7 +29,7 @@ const ProfilePage = () => {
 	
 	const { username } = useParams();
 
-	// ✅ FIXED: Added queryFn to get authUser
+	
 	const { data: authUser } = useQuery({
 		queryKey: ["authUser"],
 		queryFn: async () => {

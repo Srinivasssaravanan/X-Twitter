@@ -1,6 +1,6 @@
-// const express = require("express")
+
 import dotenv from "dotenv"
-import express from "express"; // "type": "module" in package.json
+import express from "express"; 
 import cloudinary from "cloudinary";
 import cookieParser from "cookie-parser";
 import connectDB from "./db/connectDB.js";

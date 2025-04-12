@@ -13,7 +13,7 @@ const CreatePost = () => {
 	const imgRef = useRef(null);
 	const queryClient = useQueryClient();
 
-	// ✅ Fetch the authenticated user
+	
 	const { data: authUser, isLoading: userLoading, error: userError } = useQuery({
 		queryKey: ["authUser"],
 		queryFn: async () => {
@@ -25,7 +25,7 @@ const CreatePost = () => {
 		}
 	});
 
-	// ✅ Create Post Mutation
+	
 	const { mutate: createPost, isPending, isError,error } = useMutation({
 		mutationFn: async ({ text, img }) => {
 			const res = await fetch(`${baseUrl}/api/posts/create`, {

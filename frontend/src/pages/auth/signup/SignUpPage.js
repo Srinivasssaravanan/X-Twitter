@@ -6,7 +6,7 @@ import XSvg from "../../../components/svgs/X";
 import { MdOutlineMail, MdPassword } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { MdDriveFileRenameOutline } from "react-icons/md";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"; // Password toggle icons
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"; 
 import { useMutation,useQueryClient ,} from "@tanstack/react-query";
 import { baseUrl } from "../../../constant/url";
 import toast from "react-hot-toast";
@@ -22,7 +22,7 @@ const SignUpPage = () => {
 		password: "",
 	});
     const queryClient = useQueryClient();
-	const [showPassword, setShowPassword] = useState(false); // Password visibility state
+	const [showPassword, setShowPassword] = useState(false); 
 
 	const { mutate: signup, isPending, isError, error } = useMutation({
 		mutationFn: async ({ email, username, fullname, password }) => {
