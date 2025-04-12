@@ -1,1 +1,1 @@
-export const baseUrl = "https://x-twitter-ntte.onrender.com"
+export const baseUrl = "http://localhost:5001"
