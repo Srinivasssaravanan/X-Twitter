@@ -119,10 +119,3 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
-
-
-// when i click post button then the data is returned in  mutation fn right so if th e image is returned successfullly on the server side then it queryClient.invalidateQueries({ queryKey: ["posts"] });  refetches the new post by making old as stale
-//The file picker only opens when an <input type="file"> is clicked. imgRef.current.click();  this automatically clic=ks the hidden without actual clicking.
-//Without ref={imgRef}, imgRef.current would stay null — it would never get linked to the input.
-//onClick={() => imgRef.current.click()} this automatically clicks  put type='file' hidden ref={imgRef} this right using imgred as reference
-//for identifying the correct hidden input to get triggered we use ref={imgRef}
