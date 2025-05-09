@@ -154,11 +154,3 @@ const EditProfileModal = () => {
 export default EditProfileModal;
 
 
-/**In DaisyUI (which is a Tailwind CSS component library),
-modal-action is a utility class provided specifically to:
-
-📐 Position the action buttons (like “Close”, “Save”, “Cancel”) at the bottom-right (or neatly aligned area) of the modal
-
-🎨 Provide consistent spacing, padding, and layout between buttons
-
-📱 Ensure good responsiveness and alignment on different screen sizes */
