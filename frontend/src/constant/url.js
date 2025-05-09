@@ -1,1 +1,1 @@
-export const baseUrl = "https://x-twitter-production-eb92.up.railway.app"
+export const baseUrl = "https://x-twitter-production-eb92.up.railway.app/"
