@@ -10,11 +10,10 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useMutation,useQueryClient ,} from "@tanstack/react-query";
 import { baseUrl } from "../../../constant/url";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
 
 const SignUpPage = () => {
-	const navigate = useNavigate();  
+	
 	const [formData, setFormData] = useState({
 		email: "",
 		username: "",
@@ -52,8 +51,6 @@ const SignUpPage = () => {
 		onSuccess: () => {
 			toast.success("Account created successfully");
 			queryClient.invalidateQueries({ queryKey: ["authUser"] });
-
-			navigate("/");
 		},
 	});
 

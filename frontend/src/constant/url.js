@@ -1,1 +1,1 @@
-export const baseUrl = "http://localhost:5001"
+export const baseUrl = "https://x-twitter-production-eb92.up.railway.app/"

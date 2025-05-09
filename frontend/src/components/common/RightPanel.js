@@ -32,7 +32,7 @@ const RightPanel = () => {
 	}
 	})
 
-const {follow,isPending} = useFollow();
+const {follow,isPending} = useFollow(); //custom hook..the returned value of custom hook const {follow,isPending} = useFollow(); is got here
 	if(suggestedUsers?.length===0)
 	{
 		return (
@@ -69,7 +69,7 @@ const {follow,isPending} = useFollow();
 									</div>
 									<div className='flex flex-col'>
 										<span className='font-semibold tracking-tight truncate w-28'>
-											{user.fullName}
+											{user.fullname}
 										</span>
 										<span className='text-sm text-slate-500'>@{user.username}</span>
 									</div>

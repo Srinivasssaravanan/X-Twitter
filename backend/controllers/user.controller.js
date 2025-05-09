@@ -10,11 +10,12 @@ export const getProfile = async(req,res)=>{
         {
             return res.status(404).json({error : "user not found"})
         }
-        res.status(200).json(user);
+        res.status(200).json(user);//At this point, it's returning all user fields including the password hash — which isn’t safe. Ideally, you’d do something like:
     }
     catch(error){
         console.log(`error in get user profile controller : ${error}`)
-        res.status(500).json({error : "internal server error"})
+        res.status(500).json({error :
+             "internal server error"})
     }
 }
 
@@ -36,8 +37,8 @@ export const followUnFollowUser = async(req,res)=>{
         if(isFollowing)
         {
             //unfollow
-            await User.findByIdAndUpdate({_id:id},{$pull:{followers :req.user._id}})
-            await User.findByIdAndUpdate({_id : req.user._id},{$pull:{following:id}})
+            await User.findByIdAndUpdate({_id:id},{$pull:{followers :req.user._id}})// avan id la ulla followers la irunthu enna remove pannum
+            await User.findByIdAndUpdate({_id : req.user._id},{$pull:{following:id}})// en following la irunthu avan remove aavan
             res.status(200).json({message : "unfollow success"});
         }
         else{
@@ -62,7 +63,7 @@ export const followUnFollowUser = async(req,res)=>{
 
 export const getSuggestedUsers = async(req,res)=>{
     try{
-        const userId = req.user._id;
+        const userId = req.user._id;//current user
         const userFollowedByMe = await User.findById({_id : userId}).select("-password")
 
         const users = await User.aggregate([
@@ -76,7 +77,7 @@ export const getSuggestedUsers = async(req,res)=>{
                 }
             }
         ])
-        const fillteredUsers = users.filter((user)=> !userFollowedByMe.following.includes(user._id))
+        const fillteredUsers = users.filter((user)=> !userFollowedByMe.following.includes(user._id))//here filltered users stores the user in users list which is true
         const suggestedUsers = fillteredUsers.slice(0,4);
 
         suggestedUsers.forEach((user) =>(user.password = null))

@@ -20,6 +20,7 @@ export const signup =async(req, res) => {
         return res.status(400).json({error : "password mustbe atleats 6char length" })
        }
        // hashing the password
+       
        const salt = await bcrypt.genSalt(10);
        const hashedPassword = await bcrypt.hash(password,salt);
        const newUser = new User({
@@ -30,7 +31,7 @@ export const signup =async(req, res) => {
        })
        if(newUser)
        {
-        generateToken(newUser._id,res)
+        generateToken(newUser._id,res) //generateToken(newUser._id, res)  first the generate Token is a function right it generates token using newUser._id 
         await newUser.save();
         res.status(200).json({
             _id :  newUser._id,
@@ -86,7 +87,7 @@ export const login = async (req, res) => {
 }
 export const logout = async (req, res) => {
   try{
-       res.cookie("jwt","",{maxAge : 0})
+       res.cookie("jwt","",{maxAge : 0}) //res.cookie(): This method sets a cookie in the response. In this case, it's clearing a cookie."jwt": This is the name of the cookie being set (typically, this is the cookie where the JWT token is stored)."": An empty string is set as the value of the cookie, effectively invalidating it. This removes the current JWT token
        res.status(200).json({message : "logout successfully"});
   }
   catch(error){

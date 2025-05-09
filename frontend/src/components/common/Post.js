@@ -14,7 +14,7 @@ import { formatPostDate } from "../../utils/data";
 const Post = ({ post }) => {
 	const [comment, setComment] = useState("");
 
-	const { data: authUser } = useQuery({
+	const { data: authUser } = useQuery({ // here the data of the user is sent to authUser right??? only data is returned right
 		queryKey: ["authUser"],
 		queryFn: async () => {
 			const res = await fetch(`${baseUrl}/api/auth/me`, {
@@ -44,14 +44,14 @@ const Post = ({ post }) => {
 		},
 		onSuccess: () => {
 			toast.success("Post deleted successfully");
-			queryClient.invalidateQueries({ queryKey: ["posts"] });
+			queryClient.invalidateQueries({ queryKey: ["posts"] });// like refreshing the posts component
 		},
 	});
 
 	const { mutate: likePost, isPending: isLiking } = useMutation({
 		mutationFn: async () => {
 			const res = await fetch(`${baseUrl}/api/posts/like/${post._id}`, {
-				method: "POST",
+				method: "POST",//But — even though it’s a POST request to send something, the server usually responds back with some updated data in the response body — typically the updated likes array for the post.
 				credentials: "include",
 				headers: {
 					"Content-Type": "application/json",
@@ -63,14 +63,14 @@ const Post = ({ post }) => {
 			}
 			return data;
 		},
-		onSuccess: (updatedLikes) => {
+		onSuccess: (updatedLikes) => {//here updatedLikes refers to updated data that is returned from the Above fxn it can be of any name
 			const userLiked = updatedLikes.includes(authUser._id);
 			toast.success(userLiked ? "Post liked" : "Post unliked");
 		
 			queryClient.setQueryData(["posts"], (oldData) => {
 				return oldData.map((p) => {
 					if (p._id === post._id) {
-						return { ...p, likes: updatedLikes };
+						return { ...p, likes: updatedLikes };//Now, let's say you want to update the likes property of this post, but you don't want to modify the original post object. Instead, you want to keep the other properties (like _id, text, and author) as they are
 					}
 					return p;
 				});
@@ -139,7 +139,7 @@ const Post = ({ post }) => {
 			<div className='avatar'>
 				<Link
 					to={`/profile/${postOwner.username}`}
-					className='w-8 rounded-full overflow-hidden'
+					className='w-10 h-10 rounded-full overflow-hidden'
 				>
 					<img
 						src={postOwner.profileImg || "/avatar-placeholder.png"}
@@ -150,7 +150,7 @@ const Post = ({ post }) => {
 			<div className='flex flex-col flex-1'>
 				<div className='flex gap-2 items-center'>
 					<Link to={`/profile/${postOwner.username}`} className='font-bold'>
-						{postOwner.fullName}
+						{postOwner.fullname}
 					</Link>
 					<span className='text-gray-700 flex gap-1 text-sm'>
 						<Link to={`/profile/${postOwner.username}`}>
@@ -227,7 +227,7 @@ const Post = ({ post }) => {
 											<div className='flex flex-col'>
 												<div className='flex items-center gap-1'>
 													<span className='font-bold'>
-														{comment.user.fullName}
+														{comment.user.fullname}
 													</span>
 													<span className='text-gray-700 text-sm'>
 														@{comment.user.username}
@@ -244,7 +244,7 @@ const Post = ({ post }) => {
 									onSubmit={handlePostComment}
 								>
 									<textarea
-										className='textarea w-full p-1 rounded text-md resize-none border focus:outline-none border-gray-800'
+										className='textarea w-full p-2 rounded text-md resize-none border focus:outline-none border-gray-800'
 										placeholder='Add a comment...'
 										value={comment}
 										onChange={(e) => setComment(e.target.value)}
@@ -295,7 +295,7 @@ const Post = ({ post }) => {
 
 					{/* Bookmark */}
 					<div className='flex w-1/3 justify-end gap-2 items-center'>
-						<FaRegBookmark className='w-4 h-4 text-slate-500 cursor-pointer' />
+						<FaRegBookmark className='w-4 h-4 text-slate-500 cursor-pointer hover:text-blue-500' />
 					</div>
 				</div>
 			</div>
@@ -304,3 +304,18 @@ const Post = ({ post }) => {
 };
 
 export default Post;
+
+//if someone uses post component then it is passed as a parameter
+//so that if anydata can be passed as a parameter right??
+//here const Post = ({ post }) => { post is just a name right any name can be given and can be used as.
+/**So, Why is authUser Needed in This Code?
+In the part of the code where you are checking whether a post is liked or not, you need the data of the authenticated user (authUser). Here’s why it’s required:
+
+authUser._id is being compared to post.user._id to check if the current logged-in user is the same as the one who created the post (so that the "Delete" button can be shown for the post creator).
+
+Also, authUser._id is needed in the "Like" feature to check if the authenticated user has liked the post or not (isLiked logic). */
+
+/**
+ It’s not a direct DOM/UI refresh like window.location.reload().
+→ Instead — it triggers a data refresh from the server, and when the data updates in React Query’s cache, the UI that uses that data (via useQuery(["posts"])) automatically re-renders with the new fresh data
+ */

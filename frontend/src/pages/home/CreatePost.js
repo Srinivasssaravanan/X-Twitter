@@ -10,9 +10,8 @@ import LoadingSpinner from "../../components/common/LoadingSpinner";
 const CreatePost = () => {
 	const [text, setText] = useState("");
 	const [img, setImg] = useState(null);
-	const imgRef = useRef(null);
+	const imgRef = useRef(null);//imgRef — a reference to the hidden <input type='file'>
 	const queryClient = useQueryClient();
-
 	
 	const { data: authUser, isLoading: userLoading, error: userError } = useQuery({
 		queryKey: ["authUser"],
@@ -76,7 +75,7 @@ const CreatePost = () => {
 	return (
 		<div className='flex p-4 items-start gap-4 border-b border-gray-700'>
 			<div className='avatar'>
-				<div className='w-8 rounded-full'>
+				<div className='w-9 rounded-full'>
 					<img src={authUser?.profileImg || "/avatar-placeholder.png"} alt='avatar' />
 				</div>
 			</div>
@@ -101,7 +100,7 @@ const CreatePost = () => {
 				)}
 
 				<div className='flex justify-between border-t py-2 border-t-gray-700'>
-					<div className='flex gap-1 items-center'>
+					<div className='flex gap-2 items-center'>
 						<CiImageOn
 							className='fill-primary w-6 h-6 cursor-pointer'
 							onClick={() => imgRef.current.click()}
@@ -120,3 +119,10 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
+
+
+// when i click post button then the data is returned in  mutation fn right so if th e image is returned successfullly on the server side then it queryClient.invalidateQueries({ queryKey: ["posts"] });  refetches the new post by making old as stale
+//The file picker only opens when an <input type="file"> is clicked. imgRef.current.click();  this automatically clic=ks the hidden without actual clicking.
+//Without ref={imgRef}, imgRef.current would stay null — it would never get linked to the input.
+//onClick={() => imgRef.current.click()} this automatically clicks  put type='file' hidden ref={imgRef} this right using imgred as reference
+//for identifying the correct hidden input to get triggered we use ref={imgRef}

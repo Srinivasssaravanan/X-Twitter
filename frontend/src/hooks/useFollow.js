@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { baseUrl } from "../constant/url";
+
 const useFollow = () => {
 	const queryClient = useQueryClient();
 
@@ -25,8 +26,8 @@ const useFollow = () => {
 		},
 		onSuccess: () => {
 			Promise.all([
-				queryClient.invalidateQueries({ queryKey: ["suggestedUsers"] }),
-				queryClient.invalidateQueries({ queryKey: ["authUser"] }),
+				queryClient.invalidateQueries({ queryKey: ["suggestedUsers"] }),//Promise.all ensures they’re kicked off in parallel rather than one waiting for the other
+				queryClient.invalidateQueries({ queryKey: ["authUser"] }), //used for updating folllowers list of  authUser
 			]);
 		},
 		onError: (error) => {

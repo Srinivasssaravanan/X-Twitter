@@ -12,10 +12,10 @@ const Sidebar = () => {
 	const navigate = useNavigate();
 
 	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
-
+    
 	const { mutate: logout } = useMutation({
 		mutationFn: async () => {
-			const res = await fetch("/api/auth/logout", {
+			const res = await fetch("http://localhost:5001/api/auth/logout", {
 				method: "POST",
 				credentials: "include",
 			});
@@ -28,7 +28,7 @@ const Sidebar = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["authUser"] });
 			toast.success("Logged out successfully");
-			navigate("/login");
+			
 		},
 		onError: () => {
 			toast.error("Logout failed");
@@ -86,7 +86,7 @@ const Sidebar = () => {
 						</div>
 						<div className='flex justify-between flex-1'>
 							<div className='hidden md:block'>
-								<p className='text-white font-bold text-sm w-20 truncate'>{authUser.fullName}</p>
+								<p className='text-white font-bold text-sm w-20 truncate '>{authUser.fullname}</p>
 								<p className='text-slate-500 text-sm'>@{authUser.username}</p>
 							</div>
 							<BiLogOut

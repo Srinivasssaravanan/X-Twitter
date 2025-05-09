@@ -119,7 +119,7 @@ const ProfilePage = () => {
 								)}
 								<input type='file' hidden ref={coverImgRef} onChange={(e) => handleImgChange(e, "coverImg")} />
 								<input type='file' hidden ref={profileImgRef} onChange={(e) => handleImgChange(e, "profileImg")} />
-								<div className='avatar absolute -bottom-16 left-4'>
+								<div className='avatar absolute -bottom-16 left-4'>{/**avatar: This is a custom class that you may have defined in your project (perhaps in your tailwind.config.js or custom CSS). Its purpose is likely to style the avatar container. */}
 									<div className='w-32 rounded-full relative group/avatar'>
 										<img src={profileImg || user?.profileImg || "/avatar-placeholder.png"} />
 										<div className='absolute top-5 right-3 p-1 bg-primary rounded-full group-hover/avatar:opacity-100 opacity-0 cursor-pointer'>
@@ -137,8 +137,8 @@ const ProfilePage = () => {
 								{isMyProfile && <EditProfileModal />}
 								{!isMyProfile && (
 									<button
-										className='btn btn-outline rounded-full btn-sm'
-										onClick={() => follow(user?._id)}
+									 	className='btn btn-outline rounded-full btn-sm'
+									 	onClick={() => follow(user?._id)}
 									>
 										{isPending && <LoadingSpinner size="sm" />}
 										{!isPending && amIFollowing && "Unfollow"}
@@ -228,3 +228,9 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
+/**Imagine you edited your profile.
+
+If you call refetch() → it will fetch the latest profile immediately.
+
+If you call invalidateQueries() → it will mark the old profile as stale, and React Query will refetch it when the profile page opens again or is being used. */
