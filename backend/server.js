@@ -21,7 +21,7 @@ cloudinary.config({
 })
 
 app.use(cors({
-    origin : "http://localhost:3000",
+    origin : ["http://localhost:3000", "https://x-twitter-production-eb92.up.railway.app"],
     credentials : true
 }))
 
