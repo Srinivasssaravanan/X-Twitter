@@ -28,9 +28,3 @@ catch(error)
 }
 }
 export default protectRoute;
-
-{/**when you login using username and password then server will send a web token to me and it will be stored in browser cookie and then if i make any operations like moving to profilepage or moving to notification or anyother page then the browser sends that token along with the request then server checks it if it matches then it will move to that particular page  */}
-{/**ohooo ok when user logged in , server checks for authentication if it is correct then server creates a webtoken using the userid and the given jwt secret.its like creating a web token and signing with the jwt_secret and this will be sent to the browser, if the user makes a new rrequest then the jwt token will be sent from user to the server and server checks whether it is valid and the token is signed by me that is server with jwt_Secret */}
-{/**its like locking it with secret key . signing is like locking */}
-{/**if token is expired then we have to login again with credentials right each time while login it generated new token */}
-{/**Think of protectRoute as the security guard at the entrance of a VIP lounge (protected route). The user (browser) must show a valid, signed ID (JWT in cookie). If it's valid, they’re let in and their identity is noted (req.user). If not, they're denied access. */}
