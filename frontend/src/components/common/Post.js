@@ -44,14 +44,14 @@ const Post = ({ post }) => {
 		},
 		onSuccess: () => {
 			toast.success("Post deleted successfully");
-			queryClient.invalidateQueries({ queryKey: ["posts"] });// like refreshing the posts component
+			queryClient.invalidateQueries({ queryKey: ["posts"] });
 		},
 	});
 
 	const { mutate: likePost, isPending: isLiking } = useMutation({
 		mutationFn: async () => {
 			const res = await fetch(`${baseUrl}/api/posts/like/${post._id}`, {
-				method: "POST",//But — even though it’s a POST request to send something, the server usually responds back with some updated data in the response body — typically the updated likes array for the post.
+				method: "POST",
 				credentials: "include",
 				headers: {
 					"Content-Type": "application/json",
@@ -63,14 +63,14 @@ const Post = ({ post }) => {
 			}
 			return data;
 		},
-		onSuccess: (updatedLikes) => {//here updatedLikes refers to updated data that is returned from the Above fxn it can be of any name
+		onSuccess: (updatedLikes) => {
 			const userLiked = updatedLikes.includes(authUser._id);
 			toast.success(userLiked ? "Post liked" : "Post unliked");
 		
 			queryClient.setQueryData(["posts"], (oldData) => {
 				return oldData.map((p) => {
 					if (p._id === post._id) {
-						return { ...p, likes: updatedLikes };//Now, let's say you want to update the likes property of this post, but you don't want to modify the original post object. Instead, you want to keep the other properties (like _id, text, and author) as they are
+						return { ...p, likes: updatedLikes };
 					}
 					return p;
 				});
@@ -304,18 +304,3 @@ const Post = ({ post }) => {
 };
 
 export default Post;
-
-//if someone uses post component then it is passed as a parameter
-//so that if anydata can be passed as a parameter right??
-//here const Post = ({ post }) => { post is just a name right any name can be given and can be used as.
-/**So, Why is authUser Needed in This Code?
-In the part of the code where you are checking whether a post is liked or not, you need the data of the authenticated user (authUser). Here’s why it’s required:
-
-authUser._id is being compared to post.user._id to check if the current logged-in user is the same as the one who created the post (so that the "Delete" button can be shown for the post creator).
-
-Also, authUser._id is needed in the "Like" feature to check if the authenticated user has liked the post or not (isLiked logic). */
-
-/**
- It’s not a direct DOM/UI refresh like window.location.reload().
-→ Instead — it triggers a data refresh from the server, and when the data updates in React Query’s cache, the UI that uses that data (via useQuery(["posts"])) automatically re-renders with the new fresh data
- */
