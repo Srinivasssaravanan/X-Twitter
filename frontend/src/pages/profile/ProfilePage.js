@@ -229,8 +229,3 @@ const ProfilePage = () => {
 
 export default ProfilePage;
 
-/**Imagine you edited your profile.
-
-If you call refetch() → it will fetch the latest profile immediately.
-
-If you call invalidateQueries() → it will mark the old profile as stale, and React Query will refetch it when the profile page opens again or is being used. */
