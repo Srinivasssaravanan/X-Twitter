@@ -6,7 +6,7 @@ import { BiLogOut } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-
+import { baseUrl } from "../../utils/baseUrl";
 const Sidebar = () => {
 	const queryClient = useQueryClient();
 	const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Sidebar = () => {
     
 	const { mutate: logout } = useMutation({
 		mutationFn: async () => {
-			const res = await fetch("http://localhost:5001/api/auth/logout", {
+			const res = await fetch(`${baseUrl}/api/auth/logout`, {
 				method: "POST",
 				credentials: "include",
 			});
