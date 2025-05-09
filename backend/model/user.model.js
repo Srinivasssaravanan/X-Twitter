@@ -53,12 +53,6 @@ const UserSchema = mongoose.Schema({
     default : []
   }], 
 },{timestamps : true}) 
-const User = mongoose.model("User",UserSchema);/*this automatically takes the collection of users*/
+const User = mongoose.model("User",UserSchema);
 
 export default User
-{/**Mongoose automatically refers to the users collection in your MongoDB database. Here's how it works:
-
-Model Name: The first argument, "User", is the model name.
-
-Collection Name: Mongoose automatically converts the model name ("User") to a plural, lowercase form to determine the collection name in MongoDB. So, the collection name will be "users". */}
-//Not exactly! While Mongoose models (like User) are often used for retrieving data from the database, they can also be used for creating, updating, and deleting data in MongoDB. They are not just for retrieving data.
