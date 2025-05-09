@@ -81,7 +81,7 @@ const NotificationPage = () => {
 						<ul
 							tabIndex={0}  
 							className='dropdown-content z-[1]  menu p-2 shadow bg-base-100 rounded-box w-52'
-						>{/**if i remove this tabIndex={0}  then the content inside the dropbox is not functionalble */}
+						>
 							<li>
 								<a onClick={deleteNotifications}>Delete all notifications</a>
 							</li>
@@ -118,51 +118,3 @@ const NotificationPage = () => {
 	);
 };
 export default NotificationPage;
-
-
-/**MENU :
- * In DaisyUI, menu:
-
-Styles the <ul> as a vertical menu list
-
-Applies spacing, padding, and hover effects to its <li> and <a> children
-
-Automatically sets cursor: pointer on <a> items inside the menu
-
-✅ Without menu
- */
-
-/**
- * 4. Why Would notification.username Cause an Error?
-If your original notification object is structured like this:
-
-json
-Copy code
-{
-  "from": {
-    "username": "john_doe",
-    "profileImg": "/path/to/image.jpg"
-  },
-  "type": "follow"
-}
-The username is inside the from object, not directly in the notification object.
-
-If you try to access notification.username, it will be undefined because username doesn’t exist directly on notification — it exists inside from.
-
-So, using notification.username would not work here because the username is inside from.
-
-What Happens If You Use notification.username?
-Now, if you try to use notification.username instead of notification.from.username, this will only work if the username is directly part of the notification object.
-
-If Your Object Looks Like This:
-json
-Copy code
-{
-  "username": "john_doe",
-  "profileImg": "/path/to/image.jpg",
-  "type": "follow"
-}
-
- see the backend of notification
- 
-*/
