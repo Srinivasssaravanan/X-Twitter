@@ -49,7 +49,7 @@ const Posts = ({feedType,username ,userId}) => {
 	
 	useEffect(()=>{
         refetch();
-	},[feedType,refetch,username])//When the user switches between tabs like For You, Following, Posts, Likes||Or when username changes (like going to a different user's profile)||You need to re-fetch the posts according to the new feed type or new username||Otherwise — you'd be stuck seeing the old data
+	},[feedType,refetch,username])
 
 
 	return (
