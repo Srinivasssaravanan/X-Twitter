@@ -11,8 +11,8 @@ import cors from "cors"
 import path from "path";
 
 dotenv.config();
-const app = express();//app is your server instance
-const __dirname = path.resolve();//__dirname is the absolute path to the root of your project
+const app = express();
+const __dirname = path.resolve();
 
 cloudinary.config({
     cloud_name : process.env.CLOUDINARY_CLOUD_NAME,
