@@ -13,7 +13,7 @@ try{
      {
         return res.status(400).json({error : "unauthorised : invalid token"})
      }
-    const user = await User.findOne({_id : decoded.userId}).select("-password");// _id was predefinely created my mongoose.The _id field is predefined and automatically created by MongoDB (not just Mongoose). Every document you save in a MongoDB collection automatically gets a unique _id field, unless you manually override it (which is rare and not recommended).okkk if User mongoose model is used to retrieve info from mongodb and update and delete the documents am i  right
+    const user = await User.findOne({_id : decoded.userId}).select("-password");// _id was predefinely created my mongoose.The _id field is predefined and automatically created by MongoDB (not just Mongoose). Every document you save in a MongoDB collection automatically gets a unique _id field, unless you manually override it (which is rare and not recommended).okkk if User mongoose model is used to retrieve info from mongodb and update and delete the documents
     if(!user)
     {
         return res.status(400).json({error : "user not found"})
