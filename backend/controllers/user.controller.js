@@ -10,7 +10,7 @@ export const getProfile = async(req,res)=>{
         {
             return res.status(404).json({error : "user not found"})
         }
-        res.status(200).json(user);//At this point, it's returning all user fields including the password hash — which isn’t safe. Ideally, you’d do something like:
+        res.status(200).json(user);
     }
     catch(error){
         console.log(`error in get user profile controller : ${error}`)
@@ -71,12 +71,8 @@ export const getSuggestedUsers = async(req,res)=>{
               $match : {
                 _id : {$ne : userId}
             }
-        },{
-                $sample : {
-                    size : 10
-                }
-            }
-        ])
+        }
+     ])
         const fillteredUsers = users.filter((user)=> !userFollowedByMe.following.includes(user._id))//here filltered users stores the user in users list which is true
         const suggestedUsers = fillteredUsers.slice(0,4);
 
